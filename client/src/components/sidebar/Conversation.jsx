@@ -1,17 +1,33 @@
 import React from "react";
+import { useConversation } from "../../store/conversationStore";
 
-const Conversation = () => {
+const Conversation = ({ conversation, lastIndex }) => {
+  const setSelectedConversation = useConversation(
+    (state) => state.setSelectedConversation
+  );
+  const selectedConversation = useConversation(
+    (state) => state.selectedConversation
+  );
+
+  const isSelected = selectedConversation?._id === conversation?._id;
+
   return (
     <>
-      <div className="flex items-center gap-4 p-2 h-[60px] bg-gray-100 hover:bg-gray-300 text-black cursor-pointer rounded-md">
+      <div
+        onClick={() => setSelectedConversation(conversation)}
+        className={`flex items-center gap-4 p-2 h-[60px] hover:bg-blue-400 hover:text-white text-black cursor-pointer rounded-md ${
+          isSelected ? "text-white bg-blue-400" : "bg-zinc-50"
+        }`}
+      >
         <div className="avatar online">
           <div className="w-14 h-14 rounded-full">
-            <img src="https://avatar.iran.liara.run/public/boy" />
+            <img src={conversation.profilePic} />
           </div>
         </div>
-        <span>John</span>
+        <span>{conversation.username}</span>
       </div>
-      <div className="divider my-0 py-0 h-1" />
+
+      {!lastIndex && <div className="divider my-0 py-0 h-1" />}
     </>
   );
 };

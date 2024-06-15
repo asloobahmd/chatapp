@@ -12,7 +12,7 @@ const Sidebar = ({ setsidebarVisible, sideBarVisible }) => {
     >
       <div className="h-full max-md:pt-[40px]">
         <button
-          className="absolute top-2 right-2 md:hidden"
+          className="absolute text-white top-2 right-2 md:hidden"
           onClick={() => setsidebarVisible(false)}
         >
           <svg

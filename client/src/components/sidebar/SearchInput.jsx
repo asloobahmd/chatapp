@@ -2,8 +2,12 @@ import React from "react";
 import { CiSearch } from "react-icons/ci";
 
 const SearchInput = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="flex items-center gap-x-4">
+    <form className="flex items-center gap-x-4" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Type here"
