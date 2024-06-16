@@ -1,21 +1,31 @@
-import React from "react";
-import Message from "./Message";
+import React, { useEffect, useRef } from "react";
 import useGetMessages from "../../hooks/useGetMessages";
 import MessageSkeleton from "../skeletons/MessageSkeletons";
+import Message from "./Message";
 
 const Messages = () => {
   const { messages, isLoading } = useGetMessages();
 
+  const lastMessageRef = useRef();
+
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
-    <div className=" flex-1 overflow-auto bg-gray-800">
+    <div className=" flex-1 overflow-auto bg-gray-800 px-4 py-2">
       {isLoading ? (
         [...Array(3)].map((_, i) => <MessageSkeleton key={i} />)
       ) : messages.length === 0 ? (
-        <div className="text-white">
+        <p className="text-gray-400 text-center">
           Send a message to start the conversation
-        </div>
+        </p>
       ) : (
-        messages.map((message, i) => <Message key={i} message={message} />)
+        messages.map((message, i) => (
+          <div key={i} ref={lastMessageRef}>
+            <Message message={message} />
+          </div>
+        ))
       )}
     </div>
   );

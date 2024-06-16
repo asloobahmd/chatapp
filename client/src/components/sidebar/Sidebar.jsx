@@ -2,18 +2,24 @@ import React from "react";
 import Conversations from "./Conversations";
 import LogoutButton from "./LogoutButton";
 import SearchInput from "./SearchInput";
+import { useConversation } from "../../store/conversationStore";
 
-const Sidebar = ({ setsidebarVisible, sideBarVisible }) => {
+const Sidebar = () => {
+  const { sidebarVisible, setSidebarVisible } = useConversation((state) => ({
+    sidebarVisible: state.sidebarVisible,
+    setSidebarVisible: state.setSidebarVisible,
+  }));
+
   return (
     <div
       className={`flex-1 border-r border-slate-500 p-4 flex flex-col max-md:absolute bg-slate-500 max-md:bg-indigo-950  z-50  inset-y-0 w-[300px] transition-[left] duration-500 ${
-        sideBarVisible ? "left-0" : "left-[-160%]"
+        sidebarVisible ? "left-0" : "left-[-160%]"
       }`}
     >
       <div className="h-full max-md:pt-[40px]">
         <button
           className="absolute text-white top-2 right-2 md:hidden"
-          onClick={() => setsidebarVisible(false)}
+          onClick={() => setSidebarVisible(false)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

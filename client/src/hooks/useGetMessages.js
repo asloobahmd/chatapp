@@ -3,7 +3,7 @@ import API from "../api";
 import { useConversation } from "../store/conversationStore";
 
 const useGetMessages = () => {
-  const { setMessages, selectedConversation } = useConversation((state) => ({
+  const { selectedConversation } = useConversation((state) => ({
     messages: state.messages,
     setMessages: state.setMessages,
     selectedConversation: state.selectedConversation,
@@ -15,7 +15,6 @@ const useGetMessages = () => {
       const res = await API.get(`/api/message/${selectedConversation?._id}`, {
         withCredentials: true,
       });
-      setMessages(res.data);
       return res.data;
     },
     enabled: !!selectedConversation?._id,

@@ -8,13 +8,17 @@ const Conversation = ({ conversation, lastIndex }) => {
   const selectedConversation = useConversation(
     (state) => state.selectedConversation
   );
+  const setSidebarVisible = useConversation((state) => state.setSidebarVisible);
 
   const isSelected = selectedConversation?._id === conversation?._id;
 
   return (
     <>
       <div
-        onClick={() => setSelectedConversation(conversation)}
+        onClick={() => {
+          setSelectedConversation(conversation);
+          setSidebarVisible(false);
+        }}
         className={`flex items-center gap-4 p-2 h-[60px] hover:bg-blue-400 hover:text-white text-black cursor-pointer rounded-md ${
           isSelected ? "text-white bg-blue-400" : "bg-zinc-50"
         }`}

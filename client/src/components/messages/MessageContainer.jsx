@@ -4,8 +4,9 @@ import MessageInput from "./MessageInput";
 import NoChatSelected from "./NoChatSelected";
 import { useConversation } from "../../store/conversationStore";
 import { useEffect } from "react";
+import ContainerHeader from "../ContainerHeader";
 
-const MessageContainer = ({ setsidebarVisible, sideBarVisible }) => {
+const MessageContainer = () => {
   const selectedConversation = useConversation(
     (state) => state.selectedConversation
   );
@@ -23,30 +24,10 @@ const MessageContainer = ({ setsidebarVisible, sideBarVisible }) => {
   return (
     <div className="flex-[2.3]">
       {!selectedConversation ? (
-        <NoChatSelected
-          setsidebarVisible={setsidebarVisible}
-          sideBarVisible={sideBarVisible}
-        />
+        <NoChatSelected />
       ) : (
         <div className="flex flex-col  h-full">
-          {/* header */}
-          <div className="bg-slate-500 h-[50px] text-white w-full flex items-center justify-between px-4">
-            <div className="flex items-center">
-              <button
-                className="md:hidden mr-3 bg-transparent hover:bg-transparent"
-                onClick={() => setsidebarVisible(true)}
-              >
-                <MdMenu size={30} />
-              </button>
-              <div className="flex items-center">
-                <span className="label-text mr-1">To:</span>
-                <span className="text-white font-bold">
-                  {selectedConversation?.username}
-                </span>
-              </div>
-            </div>
-            <div className="flex-1 flex justify-end">date</div>
-          </div>
+          <ContainerHeader />
 
           <Messages />
           <MessageInput />
