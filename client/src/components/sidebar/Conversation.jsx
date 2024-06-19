@@ -1,5 +1,6 @@
 import React from "react";
 import { useConversation } from "../../store/conversationStore";
+import { useSocketContext } from "../../context/SocketContext";
 
 const Conversation = ({ conversation, lastIndex }) => {
   const setSelectedConversation = useConversation(
@@ -10,6 +11,9 @@ const Conversation = ({ conversation, lastIndex }) => {
   );
   const setSidebarVisible = useConversation((state) => state.setSidebarVisible);
 
+  const { onlineUsers } = useSocketContext();
+
+  const isOnline = onlineUsers.includes(conversation?._id);
   const isSelected = selectedConversation?._id === conversation?._id;
 
   return (
@@ -23,7 +27,7 @@ const Conversation = ({ conversation, lastIndex }) => {
           isSelected ? "text-white bg-blue-400" : "bg-zinc-50"
         }`}
       >
-        <div className="avatar online">
+        <div className={`avatar ${isOnline ? "online" : "offline"}`}>
           <div className="w-14 h-14 rounded-full">
             <img src={conversation.profilePic} />
           </div>
